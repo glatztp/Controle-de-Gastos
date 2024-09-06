@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <a href="perfil.html" class="profile-icon">
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQHD4v1I43U4FQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1698373794214?e=2147483647&v=beta&t=iIfPmoEJZj3zIntWCFG_gXWHgoES7cpcCyy3l4uqu8A" alt="Perfil">
+        </a>
+        <h1>Controle de Gastos</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <button id="logout-button">Logout</button>
+        </nav>
+    </header>
+    <main>
+        <h2>Meu Perfil</h2>
+        <section class="profile-settings">
+            <h3>Informações do Perfil</h3>
+            <form id="profileForm">
+                <label for="profilePhoto">Foto de Perfil:</label>
+                <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" onchange="updateProfilePhoto(event)">
+                
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" value="Nome do Usuário" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="email@dominio.com" required>
+                
+                <label for="bio">Biografia:</label>
+                <textarea id="bio" name="bio" rows="4" placeholder="Escreva algo sobre você..."></textarea>
+                
+                <label for="preferences">Preferências:</label>
+                <select id="preferences" name="preferences">
+                    <option value="opt1">Opção 1</option>
+                    <option value="opt2">Opção 2</option>
+                    <option value="opt3">Opção 3</option>
+                </select>
+                
+                <button type="submit">Atualizar Perfil</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Controle de Produtos. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function updateProfilePhoto(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const photoUrl = reader.result;
+                document.getElementById('profilePhotoDisplay').src = photoUrl;
+                localStorage.setItem('profilePhotoUrl', photoUrl); // Armazena a URL da foto no armazenamento local
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Carrega a foto do perfil do armazenamento local
+        window.addEventListener('load', () => {
+            const photoUrl = localStorage.getItem('profilePhotoUrl');
+            if (photoUrl) {
+                document.getElementById('profilePhotoDisplay').src = photoUrl;
+            }
+        });
+    </script>
+</body>
+</html>

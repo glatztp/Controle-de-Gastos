@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Gastos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos para modal e gráficos */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+        }
+
+        .close {
+            color: #333;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        canvas {
+            display: block;
+            margin: 20px auto;
+        }
+
+        .btn {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="perfil.html" class="profile-icon">
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQHD4v1I43U4FQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1698373794214?e=2147483647&v=beta&t=iIfPmoEJZj3zIntWCFG_gXWHgoES7cpcCyy3l4uqu8A"
+                alt="Perfil">
+        </a>
+        <h1>Controle de Gastos</h1>
+        <nav>
+            <button id="logout-button">Logout</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="search">
+            <h2>Buscar Gastos ou Entradas</h2>
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Pesquisar por nome...">
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        <section class="dashboard">
+            <h2>Dashboard</h2>
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>Total de Entradas</h3>
+                    <p id="total-entradas">$0.00</p>
+                </div>
+                <div class="card">
+                    <h3>Total de Despesas Abertas</h3>
+                    <p id="total-despesas-abertas">$0.00</p>
+                </div>
+                <div class="card">
+                    <h3>Total de Gastos</h3>
+                    <p id="total-gastos">$0.00</p>
+                </div>
+            </div>
+        </section>
+
+        <div id="formsContainer" style="display: flex; justify-content: center;">
+            <button id="showAddGastoFormButton" class="btn">Adicionar Gasto</button>
+            <button id="showAddEntradaFormButton" class="btn">Adicionar Entrada de Dinheiro</button>
+            <button id="showRemoveGastoFormButton" class="btn">Remover Gasto</button>
+        </div>
+
+        <h3>Resumo Financeiro</h3>
+        <canvas id="summaryChart" width="400" height="400"></canvas>
+
+        <h3>Gráfico Mensal de Entradas e Saídas</h3>
+        <canvas id="monthlyChart" width="400" height="400"></canvas>
+
+        <section id="gastos-section">
+            <h3>Gastos</h3>
+            <table id="gastosTable">
+                <thead>
+                    <tr>
+                        <th>Nome do Gasto</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="entradas-section">
+            <h3>Entradas</h3>
+            <table id="entradasTable">
+                <thead>
+                    <tr>
+                        <th>Nome da Entrada</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Controle de Gastos. Todos os direitos reservados.</p>
+    </footer>
+
+    <div id="addGastoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeAddGastoModal">&times;</span>
+            <h3>Adicionar Gasto</h3>
+            <form id="gastoForm">
+                <label for="gasto-nome">Nome do Gasto:</label>
+                <input type="text" id="gasto-nome" name="gasto-nome" required>
+                <label for="gasto-preco">Valor do Gasto:</label>
+                <input type="number" id="gasto-preco" name="gasto-preco" step="0.01" required>
+                <label for="gasto-descricao">Descrição:</label>
+                <textarea id="gasto-descricao" name="gasto-descricao" rows="4" required></textarea>
+                <button type="submit">Adicionar Gasto</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="entradaModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeEntradaModal">&times;</span>
+            <h3>Adicionar Entrada de Dinheiro</h3>
+            <form id="entradaForm">
+                <label for="entrada-nome">Nome da Entrada:</label>
+                <input type="text" id="entrada-nome" name="entrada-nome" required>
+                <label for="entrada-valor">Valor da Entrada:</label>
+                <input type="number" id="entrada-valor" name="entrada-valor" step="0.01" required>
+                <button type="submit">Adicionar Entrada</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="removeGastoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRemoveGastoModal">&times;</span>
+            <h3>Remover Gasto</h3>
+            <form id="removeGastoForm">
+                <label for="remove-gasto-nome">Nome do Gasto:</label>
+                <input type="text" id="remove-gasto-nome" name="remove-gasto-nome" required>
+                <button type="submit">Remover Gasto</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeDetailsModal">&times;</span>
+            <h3>Detalhes</h3>
+            <div id="detailsContent">
+                <!-- Conteúdo será inserido via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addGastoModal = document.getElementById('addGastoModal');
+            const entradaModal = document.getElementById('entradaModal');
+            const removeGastoModal = document.getElementById('removeGastoModal');
+            const detailsModal = document.getElementById('detailsModal');
+
+            const closeAddGastoModal = document.getElementById('closeAddGastoModal');
+            const closeEntradaModal = document.getElementById('closeEntradaModal');
+            const closeRemoveGastoModal = document.getElementById('closeRemoveGastoModal');
+            const closeDetailsModal = document.getElementById('closeDetailsModal');
+
+            const showAddGastoFormButton = document.getElementById('showAddGastoFormButton');
+            const showEntradaFormButton = document.getElementById('showAddEntradaFormButton');
+            const showRemoveGastoFormButton = document.getElementById('showRemoveGastoFormButton');
+
+            function openModal(modal) {
+                modal.style.display = 'flex';
+            }
+
+            function closeModal(modal) {
+                modal.style.display = 'none';
+            }
+
+            showAddGastoFormButton.addEventListener('click', () => openModal(addGastoModal));
+            showEntradaFormButton.addEventListener('click', () => openModal(entradaModal));
+            showRemoveGastoFormButton.addEventListener('click', () => openModal(removeGastoModal));
+            closeAddGastoModal.addEventListener('click', () => closeModal(addGastoModal));
+            closeEntradaModal.addEventListener('click', () => closeModal(entradaModal));
+            closeRemoveGastoModal.addEventListener('click', () => closeModal(removeGastoModal));
+            closeDetailsModal.addEventListener('click', () => closeModal(detailsModal));
+
+            window.addEventListener('click', (event) => {
+                if (event.target === addGastoModal) {
+                    closeModal(addGastoModal);
+                }
+                if (event.target === entradaModal) {
+                    closeModal(entradaModal);
+                }
+                if (event.target === removeGastoModal) {
+                    closeModal(removeGastoModal);
+                }
+                if (event.target === detailsModal) {
+                    closeModal(detailsModal);
+                }
+            });
+
+            const summaryChartCtx = document.getElementById('summaryChart').getContext('2d');
+            const monthlyChartCtx = document.getElementById('monthlyChart').getContext('2d');
+
+            let summaryChart;
+            let monthlyChart;
+
+            function initializeCharts() {
+                summaryChart = new Chart(summaryChartCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Entradas', 'Gastos'],
+                        datasets: [{
+                            label: 'Total',
+                            data: [0, 0],
+                            backgroundColor: ['green', 'red']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return `${context.label}: $${context.raw.toFixed(2)}`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                monthlyChart = new Chart(monthlyChartCtx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({ length: 12 }, (_, i) => new Date(0, i).toLocaleString('pt-BR', { month: 'short' })),
+                        datasets: [
+                            {
+                                label: 'Entradas',
+                                data: Array(12).fill(0),
+                                borderColor: 'green',
+                                backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                                fill: false,
+                                pointRadius: 5
+                            },
+                            {
+                                label: 'Gastos',
+                                data: Array(12).fill(0),
+                                borderColor: 'red',
+                                backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                                fill: false,
+                                pointRadius: 5
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        return `$${value.toFixed(2)}`;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return `${context.dataset.label}: $${context.raw.toFixed(2)}`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            async function fetchGastos() {
+                const response = await fetch('/api/gastos');
+                const data = await response.json();
+                return data;
+            }
+
+            async function fetchEntradas() {
+                const response = await fetch('/api/entradas');
+                const data = await response.json();
+                return data;
+            }
+
+            async function updateSummaryChart() {
+                const gastos = await fetchGastos();
+                const entradas = await fetchEntradas();
+                const totalEntradas = entradas.reduce((sum, e) => sum + e.valor, 0);
+                const totalGastos = gastos.reduce((sum, g) => sum + g.valor, 0);
+
+                summaryChart.data.datasets[0].data = [totalEntradas, totalGastos];
+                summaryChart.update();
+            }
+
+            async function updateMonthlyChart() {
+                const gastos = await fetchGastos();
+                const entradas = await fetchEntradas();
+                const entradasMensais = Array(12).fill(0);
+                const gastosMensais = Array(12).fill(0);
+
+                entradas.forEach(e => {
+                    if (e.mes >= 0 && e.mes < 12) {
+                        entradasMensais[e.mes] += e.valor;
+                    }
+                });
+
+                gastos.forEach(g => {
+                    if (g.mes >= 0 && g.mes < 12) {
+                        gastosMensais[g.mes] += g.valor;
+                    }
+                });
+
+                monthlyChart.data.datasets[0].data = entradasMensais;
+                monthlyChart.data.datasets[1].data = gastosMensais;
+                monthlyChart.update();
+            }
+
+            async function renderGastosTable() {
+                const gastos = await fetchGastos();
+                const gastosTableBody = document.querySelector('#gastosTable tbody');
+                gastosTableBody.innerHTML = '';
+                gastos.forEach(gasto => {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${gasto.nome}</td>
+                        <td>$${gasto.valor.toFixed(2)}</td>
+                        <td><button class="btn remove-gasto" data-nome="${gasto.nome}">Remover</button></td>
+                    `;
+                    gastosTableBody.appendChild(newRow);
+                });
+            }
+
+            async function renderEntradasTable() {
+                const entradas = await fetchEntradas();
+                const entradasTableBody = document.querySelector('#entradasTable tbody');
+                entradasTableBody.innerHTML = '';
+                entradas.forEach(entrada => {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${entrada.nome}</td>
+                        <td>$${entrada.valor.toFixed(2)}</td>
+                    `;
+                    entradasTableBody.appendChild(newRow);
+                });
+            }
+
+            function openDetailsModal(detailsHtml) {
+                const detailsContent = document.getElementById('detailsContent');
+                detailsContent.innerHTML = detailsHtml;
+                detailsModal.style.display = 'flex';
+            }
+
+            document.querySelector('#gastoForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const nome = document.querySelector('#gasto-nome').value;
+                const valor = parseFloat(document.querySelector('#gasto-preco').value);
+                const descricao = document.querySelector('#gasto-descricao').value;
+                const response = await fetch('/api/gastos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, valor, descricao })
+                });
+                if (response.ok) {
+                    document.querySelector('#gastoForm').reset();
+                    closeModal(addGastoModal);
+                    await updateSummaryChart();
+                    await updateMonthlyChart();
+                    await renderGastosTable();
+                }
+            });
+
+            document.querySelector('#entradaForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const nome = document.querySelector('#entrada-nome').value;
+                const valor = parseFloat(document.querySelector('#entrada-valor').value);
+                const response = await fetch('/api/entradas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, valor })
+                });
+                if (response.ok) {
+                    document.querySelector('#entradaForm').reset();
+                    closeModal(entradaModal);
+                    await updateSummaryChart();
+                    await updateMonthlyChart();
+                    await renderEntradasTable();
+                }
+            });
+
+            document.querySelector('#removeGastoForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const nome = document.querySelector('#remove-gasto-nome').value;
+                const response = await fetch('/api/gastos', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome })
+                });
+                if (response.ok) {
+                    document.querySelector('#removeGastoForm').reset();
+                    closeModal(removeGastoModal);
+                    await updateSummaryChart();
+                    await updateMonthlyChart();
+                    await renderGastosTable();
+                }
+            });
+
+            initializeCharts();
+            updateSummaryChart();
+            updateMonthlyChart();
+            renderGastosTable();
+            renderEntradasTable();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1050 @@
+/* Reset de margens e padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo geral do corpo */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  padding-bottom: 60px;
+  /* Espaço para o footer */
+}
+
+/* Estilo do header */
+header {
+  background: #333;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra no header */
+  position: relative;
+}
+
+/* Ícone de perfil no cabeçalho */
+.profile-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  /* Tamanho do ícone */
+  height: 40px;
+  border-radius: 50%;
+  /* Faz o ícone ser circular */
+  overflow: hidden;
+  /* Garante que a imagem se encaixe no círculo */
+}
+
+.profile-icon img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 50%;
+  /* Faz a imagem ser circular */
+  border: 2px solid #fff;
+  /* Borda branca para destacar o ícone */
+}
+
+/* Estilo do botão de configurações e logout */
+header button {
+  position: absolute;
+  top: 15px;
+  padding: 10px 20px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+  margin: 5px;
+}
+
+header button#logout-button {
+  right: 20px;
+  background-color: #ff4b5c;
+}
+
+header button#settings-button {
+  right: 120px;
+}
+
+header button:hover {
+  background-color: #575757;
+  color: #fff;
+}
+
+/* Estilo da navegação */
+nav {
+  margin-top: 10px;
+}
+
+nav a,
+#logout-button {
+  background-color: #444;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin: 5px;
+  border: none;
+  /* Remove a borda */
+}
+
+nav a:hover,
+#logout-button:hover {
+  background-color: #575757;
+  color: #fff;
+}
+
+/* Estilo para o carrossel de imagens */
+.carousel {
+  position: relative;
+  max-width: 100%;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 8px;
+  /* Adiciona bordas arredondadas ao carrossel */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra ao carrossel */
+}
+
+.carousel-images {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra nas imagens do carrossel */
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  /* Adiciona bordas arredondadas às imagens */
+}
+
+.carousel button {
+  position: absolute;
+  top: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 3px;
+  z-index: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Sombra nos botões do carrossel */
+}
+
+.carousel .prev {
+  left: 10px;
+}
+
+.carousel .next {
+  right: 10px;
+}
+
+/* Estilo principal do conteúdo */
+main {
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+h2,
+h3 {
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra em títulos */
+}
+
+.intro,
+.sobre,
+.contact-info,
+.map {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra nas seções */
+}
+
+/* Estilo dos formulários */
+form {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra no formulário */
+}
+
+form label {
+  margin: 10px 0 5px;
+}
+
+form input,
+form textarea {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button,
+.contact-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+form button:hover,
+.contact-form button:hover {
+  background: #575757;
+}
+
+/* Estilo dos botões principais e de compra */
+.main-buttons,
+.planos {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.main-buttons a,
+.purchase-btn,
+.btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  border: 2px solid #333;
+  border-radius: 5px;
+  text-decoration: none;
+  background-color: #fff;
+  color: #333;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Sombra nos botões */
+}
+
+.main-buttons a:hover,
+.purchase-btn:hover,
+.btn:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Estilo da tabela de totais */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra na tabela */
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+thead {
+  background-color: #333;
+  color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #ddd;
+}
+
+/* Estilo do rodapé */
+/* Estilo do rodapé */
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra no rodapé */
+}
+
+/* Estilos para elementos dentro do footer */
+footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 14px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+
+/* Estilos para o mapa */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Estilo para o ícone de SAC */
+#sac-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  /* para que esteja acima de outros elementos */
+}
+
+#sac-icon img {
+  width: 40px;
+  /* tamanho do ícone */
+  height: 40px;
+}
+
+#financialChart {
+  width: 100%;
+  /* Largura total do contêiner */
+  height: 400px;
+  /* Altura fixa para os gráficos */
+  margin: 20px auto;
+  /* Centraliza o gráfico com margem */
+  border-radius: 8px;
+  /* Borda arredondada */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra no gráfico */
+}
+
+/* Ajustes para o gráfico de pizza */
+#financialChart canvas {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra no gráfico */
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 1024px) {
+  main {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 10px;
+  }
+
+  header button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .dashboard-cards {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .card {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .social-share {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .social-button {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 0 10px;
+  }
+
+  header {
+    text-align: left;
+    padding: 5px;
+  }
+
+  .profile-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  header button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .dashboard h2 {
+    font-size: 20px;
+  }
+
+  .card h3 {
+    font-size: 16px;
+  }
+
+  .card p {
+    font-size: 20px;
+  }
+
+  .carousel {
+    height: auto;
+  }
+
+  .carousel-slide img {
+    border-radius: 0;
+    /* Remove bordas arredondadas em dispositivos muito pequenos */
+  }
+
+  .social-share {
+    gap: 10px;
+  }
+
+  .social-button {
+    padding: 8px;
+  }
+
+  nav a,
+  #logout-button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+/* Reset de margens e padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo geral do corpo */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  padding-bottom: 60px;
+  /* Espaço para o footer */
+}
+
+/* Estilo do header */
+header {
+  background: #333;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Sombra no header */
+  position: relative;
+}
+
+/* Ícone de perfil no cabeçalho */
+.profile-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  /* Tamanho do ícone */
+  height: 40px;
+  border-radius: 50%;
+  /* Faz o ícone ser circular */
+  overflow: hidden;
+  /* Garante que a imagem se encaixe no círculo */
+}
+
+.profile-icon img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 50%;
+  /* Faz a imagem ser circular */
+  border: 2px solid #fff;
+  /* Borda branca para destacar o ícone */
+}
+
+/* Estilo do botão de logout */
+#logout-button {
+  background-color: #444;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin: 5px;
+}
+
+#logout-button:hover {
+  background-color: #575757;
+  color: #fff;
+}
+
+/* Estilo principal do conteúdo */
+main {
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Centraliza a seção de compartilhamento social na tela */
+.social-share {
+  display: flex;
+  justify-content: center;
+  /* Centraliza horizontalmente */
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  /* Adiciona margem vertical para espaçamento */
+}
+
+.social-button {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  background-color: #333;
+  /* Cor de fundo padrão */
+  transition: background-color 0.3s;
+  /* Transição suave para a cor de fundo */
+}
+
+.social-button:hover {
+  background-color: #555;
+  /* Cor de fundo ao passar o mouse */
+}
+
+.facebook {
+  background-color: #3b5998;
+}
+
+.x {
+  background-color: #020202;
+}
+
+.linkedin {
+  background-color: #0077b5;
+}
+
+.social-button:hover {
+  opacity: 0.8;
+}
+
+#g-signin2 {
+  margin: 20px;
+}
+
+/* Estilo do Dashboard */
+.dashboard {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 1000px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  /* Permite que os cards se movam para baixo se não houver espaço */
+  gap: 20px;
+  /* Espaçamento entre os cards */
+}
+
+.card {
+  flex: 1;
+  min-width: 250px;
+  /* Largura mínima para cada card */
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Estilo dos Alertas */
+.alerts {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 1000px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.alerts h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+#alert-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  position: relative;
+  /* Para o botão de fechar */
+}
+
+.alert-info {
+  background-color: #2196F3;
+}
+
+.alert-warning {
+  background-color: #FFC107;
+}
+
+.alert-error {
+  background-color: #F44336;
+}
+
+.alert-success {
+  background-color: #4CAF50;
+}
+
+/* Botão para fechar o alerta */
+.alert .closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .dashboard-cards {
+    flex-direction: column;
+    gap: 10px;
+    /* Menos espaço entre os cards em telas menores */
+  }
+
+  .card {
+    width: 100%;
+    /* Faz os cards ocuparem toda a largura disponível */
+    min-width: auto;
+    /* Remove a largura mínima em telas pequenas */
+  }
+
+  .profile-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  #logout-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .dashboard {
+    padding: 15px;
+  }
+
+  .alerts {
+    padding: 15px;
+  }
+
+  .social-share {
+    flex-direction: column;
+  }
+
+  .social-button {
+    width: 100%;
+    /* Faz os botões ocuparem toda a largura disponível */
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  #logout-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .dashboard {
+    padding: 10px;
+  }
+
+  .alerts {
+    padding: 10px;
+  }
+
+  .social-share {
+    gap: 5px;
+  }
+
+  .social-button {
+    font-size: 14px;
+  }
+}
+
+/* Estilo dos gráficos */
+canvas {
+  display: block;
+  margin: 0 auto 20px auto;
+  max-width: 100%;
+  /* Ajusta o canvas para se ajustar ao contêiner */
+  height: auto;
+  /* Mantém a proporção do canvas */
+  width: 300px;
+  /* Ajuste a largura conforme necessário */
+  height: 300px;
+  /* Ajuste a altura conforme necessário */
+}
+
+/* Estilos para tamanhos menores nos gráficos específicos */
+#generalProductChart,
+#categoryChart,
+#expensesChart {
+  width: 250px;
+  /* Largura específica para gráficos */
+  height: 250px;
+  /* Altura específica para gráficos */
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+input:valid,
+textarea:valid {
+  border-color: #4CAF50;
+  /* Verde quando válido */
+}
+
+input:invalid,
+textarea:invalid {
+  border-color: #F44336;
+  /* Vermelho quando inválido */
+}
+
+.neumorphic {
+  background: #e0e0e0;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px #bcbcbc, -10px -10px 20px #ffffff;
+}
+
+.neumorphic-button {
+  background: #e0e0e0;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
+  transition: box-shadow 0.3s;
+}
+
+.neumorphic-button:hover {
+  box-shadow: 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+}
+
+.float-layer {
+  position: relative;
+}
+
+.float-layer img {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.page-transition {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.page-transition.entering {
+  opacity: 1;
+}
+
+/* Aplicando o efeito neumórfico aos botões e cards */
+.card,
+.main-buttons a,
+.purchase-btn,
+.btn {
+  background: #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.card:hover,
+.main-buttons a:hover,
+.purchase-btn:hover,
+.btn:hover {
+  box-shadow: 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+  transform: translateY(-3px);
+}
+
+/* Adicionando animações aos botões */
+header button:active {
+  transform: scale(0.95);
+}
+
+/* Efeito de transição de página */
+.page-transition {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.page-transition.entering {
+  opacity: 1;
+}
+
+/* Estilo do botão SAC */
+.fixed-bottom-right {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.fixed-bottom-right img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Estilo do chat widget */
+.chat-widget {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  width: 300px;
+  max-height: 400px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-header {
+  background: #007bff;
+  color: #fff;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-body {
+  padding: 10px;
+  overflow-y: auto;
+  flex: 1;
+  max-height: 300px;
+  /* Ajuste o máximo de altura para o chat */
+}
+
+.chat-footer {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+}
+
+.chat-footer input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.chat-footer button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* Estilo das mensagens */
+.message {
+  margin-bottom: 10px;
+}
+
+.message.bot-message {
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.message.user-message {
+  background: #007bff;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: right;
+}
+
+.message p {
+  margin: 0;
+}
+
+.message .timestamp {
+  font-size: 0.8em;
+  color: #888;
+}
+
+/* Respostas predefinidas */
+.predefined-responses {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.predefined-response {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+/* Adicione isso ao seu styles.css para um estilo básico */
+.comentarios-avaliacoes {
+  margin-top: 20px;
+}
+
+.comentarios-avaliacoes form {
+  margin-bottom: 20px;
+}
+
+.comentario-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.avaliacao {
+  color: gold;
+}
+
+.comentario-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.comentario-header {
+  display: flex;
+  align-items: center;
+}
+
+.foto-perfil {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.avaliacao {
+  color: gold;
+}
+
+.formscontainer {
+  display: flex;
+  justify-content: center;
+}
